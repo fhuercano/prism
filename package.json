@@ -1,0 +1,36 @@
+{
+  "name": "prismjs",
+  "description": "Lightweight, robust, elegant syntax highlighting. A spin-off project from Dabblet.",
+  "author": {
+    "name": "Lea Verou",
+    "email": ""
+  },
+  "version": "0.0.1",
+  "main": "prism-node.js",
+  "dependencies": {},
+  "homepage": "https://prismjs.com",
+  "keywords": [
+    "code",
+    "highlight",
+    "syntax"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/LeaVerou/prism/blob/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "prepublish": "node ./tools/prism-node-builder.js",
+    "test": "node ./test-node.js"
+  },
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LeaVerou/prism.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Baggz/Amanda/issues",
+    "email": "hello@frantisekhaba.com"
+  }
+}

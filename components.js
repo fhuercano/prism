@@ -1,3 +1,6 @@
+;(function () {
+	"use strict";
+
 var components = {
 	core: {
 		meta: {
@@ -94,3 +97,21 @@ var components = {
 		}
 	}
 };
+
+// export components, when module is present, or pass it to window or global
+if (typeof module !== "undefined") {
+	module.exports = components;
+}
+else if (typeof define !== "undefined") {
+	define([],function() {
+		return components;
+	});
+}
+else if (typeof window !== "undefined") {
+	window['components'] = components;
+}
+else {
+	global.components = components;
+}
+
+})();

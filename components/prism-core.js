@@ -4,12 +4,30 @@
  * @author Lea Verou http://lea.verou.me
  */
 
-(function(){
+;(function (root, factory) {
+	'use strict';
+
+	var doc = typeof document === 'undefined' ? null : document;
+	var construct = function () {
+		return factory(root, doc);
+	};
+
+	if (typeof exports === 'object') {
+		module.exports = construct();
+	} else if (typeof define === 'function' && define.amd) {
+		define(construct);
+	} else {
+		root.Prism = construct();
+	}
+}(this, function (self, document) {
+	'use strict';
 
 // Private helper vars
 var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+var _;
+var Prism;
 
-var _ = self.Prism = {
+_ = Prism = {
 	util: {
 		type: function (o) { 
 			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
@@ -143,7 +161,7 @@ var _ = self.Prism = {
 		
 		_.hooks.run('before-highlight', env);
 		
-		if (async && self.Worker) {
+		if (async && self && self.Worker && self.addEventListener) {
 			var worker = new Worker(_.filename);	
 			
 			worker.onmessage = function(evt) {
@@ -319,7 +337,7 @@ Token.stringify = function(o, language, parent) {
 	
 };
 
-if (!self.document) {
+if (!self.document && self.addEventListener) {
 	// In worker
 	self.addEventListener('message', function(evt) {
 		var message = JSON.parse(evt.data),
@@ -334,7 +352,7 @@ if (!self.document) {
 }
 
 // Get current script and highlight
-var script = document.getElementsByTagName('script');
+var script = document && document.getElementsByTagName('script') || [];
 
 script = script[script.length - 1];
 
@@ -346,4 +364,8 @@ if (script) {
 	}
 }
 
-})();
+/*<Plugins>*/
+
+return Prism;
+
+}));
